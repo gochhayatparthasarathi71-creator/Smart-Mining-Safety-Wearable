@@ -41,7 +41,13 @@ app.get('/', (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
-app.get('/api/health', (req, res) => res.json({ success: true, status: 'OK' }));
+app.get('/api/health', (req, res) => {
+  res.json({
+    success: true,
+    status: "OK",
+    version: "TEST-123"
+  });
+});
 
 // --- Routes ---
 app.use('/api/auth', authRoutes);
