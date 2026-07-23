@@ -21,15 +21,25 @@ const server = http.createServer(app);
 // --- Socket.io setup ---
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      'https://smart-mining-safety-wearable.vercel.app'
+    ],
     methods: ['GET', 'POST'],
+    credentials: true
   },
 });
 app.set('io', io); // accessible inside controllers via req.app.get('io')
 socketHandler(io);
 
 // --- Middleware ---
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://smart-mining-safety-wearable.vercel.app'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
